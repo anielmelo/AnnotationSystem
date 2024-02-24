@@ -60,9 +60,9 @@ const register = async (request, response) => {
         return response.status(400).json({msg: 'User already exist!'})
     }
 
-    const salt = await bcrypt.genSalt(12)
-    const passwordHash = await bcrypt.hash(password, salt)
     try {
+        const salt = await bcrypt.genSalt(12)
+        const passwordHash = await bcrypt.hash(password, salt)
         await userModel.create({ nameCredential, namePresentation, password:passwordHash })
         return response.status(201).json({ msg: 'User successfully registered!' })
     } catch (error) {

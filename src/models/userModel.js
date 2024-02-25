@@ -2,7 +2,7 @@ const database = require('../database/connection')
 
 const getByID = async (id) => { 
     const query = 'SELECT * FROM users WHERE id = ?;'
-    const result = await database.execute(query, [id])
+    const [result] = await database.execute(query, [id])
     const response = result.map(user => {
         return {
             id_user: user.id,
@@ -16,7 +16,7 @@ const getByID = async (id) => {
 
 const getByName = async (nameCredential) => {
     const query = 'SELECT * FROM users WHERE nameCredential = ?;'
-    const result = await database.execute(query, [nameCredential])
+    const [result] = await database.execute(query, [nameCredential])
     const response = result.map(user => {
         return {
             id_user: user.id,

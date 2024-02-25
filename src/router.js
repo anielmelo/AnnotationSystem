@@ -11,7 +11,7 @@ router.post('/auth/login', userController.login)
 
 // rotas de usuário
 router.get('/user/:id_user', userController.getByID)
-router.post('/user/:id_user', userController.update)
+router.put('/user/:id_user', userController.update)
 
 // rotas de anotações
 router.get('/user/:id_user/annotations', checkToken, annotationController.getAllFromUser) 

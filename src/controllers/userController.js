@@ -4,13 +4,14 @@ const jwt = require('jsonwebtoken')
 const userModel = require('../models/userModel')
 
 const getByID = async (request, response) => {
-    const { id } = request.params
+    const { id_user } = request.params
 
     try {
-        const user = await userModel.getByID(id)
+        const [user] = await userModel.getByID(id_user)
         return response.status(200).json(user)
     } catch (error) {
         console.log(error)
+        return response.status(404).json({ msg: 'User not found!' })
     }
 }
 
@@ -22,13 +23,14 @@ const getByName = async (request, response) => {
         return response.status(200).json(user)
     } catch (error) {
         console.log(error)
+        return response.status(404).json({ msg: 'User not found!' })
     }
 }
 
 const login = async (request, response) => {
     const { nameCredential, password } = request.body
 
-    const user = await getByName(nameCredential)
+    const [user] = await userModel.getByName(nameCredential)
     if(!user) {
         return response.status(422).json({ msg: 'User not found!' })
     }
@@ -48,6 +50,7 @@ const login = async (request, response) => {
         return response.status(200).json({ msg: 'Successfully Authenticated!', token })
     } catch (error) {
         console.log(error)
+        return response.status(400).json({ msg: 'User not Authenticated!' })
     }
 
 }
@@ -55,7 +58,7 @@ const login = async (request, response) => {
 const register = async (request, response) => {
     const { nameCredential, namePresentation, password } = request.body
 
-    const user = await userModel.getByName(nameCredential)
+    const [user] = await userModel.getByName(nameCredential)
     if(user) {
         return response.status(400).json({msg: 'User already exist!'})
     }
@@ -67,18 +70,22 @@ const register = async (request, response) => {
         return response.status(201).json({ msg: 'User successfully registered!' })
     } catch (error) {
         console.log(error)
+        return response.status(400).json({ msg: 'User cannot be registered!' })
     }
 }
 
 const update = async (request, response) => {
-    const { id } = request.params
+    const { id_user } = request.params
     const { nameCredential, namePresentation, password } = request.body
 
     try {
-        await userModel.update(id, { nameCredential, namePresentation, password })
+        const salt = await bcrypt.genSalt(12)
+        const passwordHash = await bcrypt.hash(password, salt)
+        await userModel.update(id_user, { nameCredential, namePresentation, password:passwordHash })
         return response.status(204).json({ msg: 'User successfully updated!' })
     } catch (error) {
         console.log(error)
+        return response.status(400).json({ msg: 'User cannot be updated!' })
     }
 }
 
@@ -90,6 +97,7 @@ const remove = async (request, response) => {
         return response.status(204)
     } catch (error) {
         console.log(error)
+        return response.status(400).json({ msg: 'User cannot be deleted!' })
     }
 }
 

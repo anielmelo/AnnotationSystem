@@ -2,7 +2,7 @@ const database = require('../database/connection')
 
 const getAllFromUser = async (id_user) => {
     const query = 'SELECT * FROM annotations WHERE id_user = ?;'
-    const result = await database.execute(query, [id_user])
+    const [result] = await database.execute(query, [id_user])
     const response = {
         annotations: result.map(annotation => {
             return {
@@ -19,7 +19,7 @@ const getAllFromUser = async (id_user) => {
 
 const filterByTag = async (id_user, tag) => {
     const query = 'SELECT * FROM annotations WHERE id_user = ? AND tag = ?;'
-    const result = await database.execute(query, [id_user, tag])
+    const [result] = await database.execute(query, [id_user, tag])
     const response = {
         annotations: result.map(annotation => {
             return {
@@ -36,7 +36,7 @@ const filterByTag = async (id_user, tag) => {
 
 const filterByPriority = async (id_user, priority) => {
     const query = 'SELECT * FROM annotations WHERE id_user = ? AND priority = ?;'
-    const result = await database.execute(query, [id_user, priority])
+    const [result] = await database.execute(query, [id_user, priority])
     const response = {
         annotations: result.map(annotation => {
             return {
@@ -53,7 +53,7 @@ const filterByPriority = async (id_user, priority) => {
 
 const findByTerm = async (id_user, term) => {
     const query = 'SELECT * FROM annotations WHERE id_user = ? AND description LIKE CONCAT(\'%\', ?,\'%\');'
-    const result = await database.execute(query, [id_user, term])
+    const [result] = await database.execute(query, [id_user, term])
     const response = {
         annotations: result.map(annotation => {
             return {

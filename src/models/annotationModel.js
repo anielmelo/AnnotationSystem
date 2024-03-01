@@ -68,6 +68,21 @@ const findByTerm = async (id_user, term) => {
     return response
 }
 
+const getByID = async (id) => {
+    const query = 'SELECT * FROM annotations WHERE id = ?;'
+    const [result] = await database.execute(query, [id])
+    const response = result.map(annotation => {
+        return {
+            id_annotation: annotation.id,
+            description: annotation.description,
+            tag: annotation.tag,
+            priority: annotation.priority,
+            created_at: annotation.created_at
+        }
+    })
+    return response
+}
+
 const create = async (id_user, annotation) => {
     const { description, tag, priority } = annotation
     const dateUTC = new Date(Date.now()).toUTCString()
@@ -91,6 +106,7 @@ module.exports = {
     filterByTag,
     filterByPriority,
     findByTerm,
+    getByID,
     create,
     update,
     remove

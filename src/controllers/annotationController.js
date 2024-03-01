@@ -65,8 +65,30 @@ const create = async (request, response) => {
 }
 
 const update = async (request, response) => {
-    const { description, tag, priority } = request.body
+    var { description, tag, priority } = request.body
     const { id } = request.params
+
+    const [annotation] = await annotationModel.getByID(id)
+
+    if(!annotation) {
+        return response.status(400).json({ msg: 'Annotation not found!' })
+    }
+
+    if((description === undefined || description === '') 
+    && (tag === undefined || tag === '') 
+    && (priority === undefined || priority === '')) {
+        return response.status(400).json({ msg: 'Cannot update!' })
+    }
+
+    if(description === undefined || description === '') {
+        description = annotation.description
+    }
+    if(tag === undefined || tag === '') {
+        tag = annotation.tag
+    }
+    if(priority === undefined || priority === '') {
+        priority = annotation.priority
+    }
 
     try {
         await annotationModel.update(id, { description, tag, priority })

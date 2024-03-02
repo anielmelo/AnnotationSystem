@@ -78,29 +78,7 @@ const register = async (request, response) => {
 
 const update = async (request, response) => {
     const { id_user } = request.params
-    var { nameCredential, namePresentation, password } = request.body
-
-    const [user] = await userModel.getByID(id_user)
-
-    if(!user) {
-        return response.status(400).json({ msg: 'User not found!' })
-    }
-
-    if((nameCredential === undefined || nameCredential === '') 
-    && (namePresentation === undefined || namePresentation === '') 
-    && (password === undefined || password === '')) {
-        return response.status(400).json({ msg: 'User cannot be updated!' })
-    }
-
-    if(nameCredential === undefined || nameCredential === '') {
-        nameCredential = user.nameCredential
-    }
-    if(namePresentation === undefined || namePresentation === '') {
-        namePresentation = user.namePresentation
-    }
-    if(password === undefined || password === '') {
-        password = user.password
-    }
+    const { nameCredential, namePresentation, password } = request.body
 
     try {
         const salt = await bcrypt.genSalt(12)

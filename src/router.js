@@ -7,8 +7,6 @@ const annotationController = require('../src/controllers/annotationController')
 
 const router = express.Router();
 
-router.get('/', (request, response) => {return response.send('hello world!')})
-
 // rotas de autenticação
 router.post('/auth/register', 
     userMiddleware.validateNameCredential,
@@ -24,7 +22,11 @@ router.post('/auth/login',
 // rotas de usuário
 router.get('/user/:id_user', userController.getByID)
 
-router.put('/user/:id_user', userController.update)
+router.put('/user/:id_user', 
+    userMiddleware.validateNameCredential,
+    userMiddleware.validateNamePresentation,
+    userMiddleware.validatePassword,
+    userController.update)
 
 // rotas de anotações
 router.get('/user/:id_user/annotations', checkToken, annotationController.getAllFromUser) 
@@ -35,7 +37,11 @@ router.post('/user/:id_user/annotations',
     annotationMiddleware.validateTag,
     annotationController.create) 
 
-router.put('/annotations/:id', annotationController.update) 
+router.put('/annotations/:id', 
+    annotationMiddleware.validateDescription,
+    annotationMiddleware.validatePriority,
+    annotationMiddleware.validateTag,
+    annotationController.update) 
 
 router.delete('/annotations/:id', annotationController.remove) 
 

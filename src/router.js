@@ -7,6 +7,8 @@ const annotationController = require('../src/controllers/annotationController')
 
 const router = express.Router();
 
+router.get('/', (request, response) => response.json({ message: 'hello world!' }))
+
 // rotas de autenticação
 router.post('/auth/register', 
     userMiddleware.validateNameCredential,

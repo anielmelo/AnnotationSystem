@@ -45,7 +45,7 @@ const login = async (request, response) => {
         const secret = process.env.SECRET
     
         const token = jwt.sign({
-            user_id: user.id
+            user_id: user.id_user
         }, secret)
     
         return response.status(200).json({ msg: 'Successfully Authenticated!', token })

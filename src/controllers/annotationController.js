@@ -12,6 +12,18 @@ const getAllFromUser = async (request, response) => {
     }
 }
 
+const getByID = async (request, response) => {
+    const { id } = request.params
+
+    try {
+        const annotation = await annotationModel.getByID(id)
+        return response.status(200).json(annotation)
+    } catch (error) {
+        console.log(error)
+        return response.status(500).json({ msg: 'Cannot get!' })
+    }
+}
+
 const filterByTag = async (request, response) => {
     const { id_user } = request.params
     const { tag } = request.query
@@ -91,6 +103,7 @@ const remove = async (request, response) => {
 
 module.exports = {
     getAllFromUser,
+    getByID,
     filterByTag,
     filterByPriority,
     findByTerm,

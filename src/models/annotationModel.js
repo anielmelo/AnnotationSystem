@@ -85,7 +85,7 @@ const getByID = async (id) => {
 
 const create = async (id_user, annotation) => {
     const { description, tag, priority } = annotation
-    const dateUTC = new Date(Date.now()).toUTCString()
+    const dateUTC = new Date(Date.now()).toLocaleDateString('pt-BR')
     const query = 'INSERT INTO annotations (description, tag, priority, created_at, id_user) VALUES (?, ?, ?, ?, ?);'
     await database.execute(query, [description, tag, priority, dateUTC, id_user])
 }

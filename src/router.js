@@ -34,10 +34,12 @@ router.put('/user/:id_user',
 router.get('/user/:id_user/annotations', checkToken, annotationController.getAllFromUser) 
 
 router.post('/user/:id_user/annotations', 
-    annotationMiddleware.validateDescription,
-    annotationMiddleware.validatePriority,
-    annotationMiddleware.validateTag,
-    annotationController.create) 
+annotationMiddleware.validateDescription,
+annotationMiddleware.validatePriority,
+annotationMiddleware.validateTag,
+annotationController.create) 
+
+router.get('/annotations/:id', annotationController.getByID)
 
 router.put('/annotations/:id', 
     annotationMiddleware.validateDescription,

@@ -9,7 +9,7 @@ const validateDescription = (request, response, next) => {
         return response.status(400).json({ msg: 'Description cannot be empty.' })
     }
     
-    const descriptionPattern = '^[a-zA-ZÀ-ü0-9\s\S]{1,120}$';
+    const descriptionPattern = '^.{1,120}$';
     const regex = new RegExp(descriptionPattern)
     
     if (regex.test(body.description) === false) {

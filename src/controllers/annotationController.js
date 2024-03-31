@@ -94,7 +94,7 @@ const remove = async (request, response) => {
 
     try {
         await annotationModel.remove(id)
-        return response.status(200)    
+        return response.status(204).json({ msg: 'Annotation successfully removed!' })
     } catch (error) {
         console.log(error)
         return response.status(500).json({ msg: 'Cannot remove!' })

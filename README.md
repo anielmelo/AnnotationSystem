@@ -12,6 +12,16 @@ A API oferece os seguintes recursos:
 - **Filtragem de Anotações**: Os usuários podem filtrar suas anotações com base em critérios específicos.
 - **Exclusão de Anotações**: Os usuários podem excluir suas próprias anotações.
 
+## Tecnologias utilizadas
+### Banco de Dados
+
+ - <a href="https://www.mysql.com/">MySQL</a><img align="center" alt="MySQL" height="20" width="30" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg">
+
+### Backend
+
+ - <a href="https://nodejs.org/en/">NodeJS</a><img align="center" alt="NodeJS" height="20" width="30" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg">
+ - <a href="https://expressjs.com/">Express</a><img align="center" alt="Express" height="20" width="30" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg">
+
 ## Endpoints da API
 
 ### Autenticação
@@ -40,5 +50,16 @@ Para fazer login, os usuários devem enviar uma solicitação POST para `/api/au
 
 ## Como utilizar
 
-Basta utilizar a URL do deploy da API consumindo através dos endpoints destacados.
-[API - Annotation System](https://annotation-system.vercel.app/)
+Para utilizar a API basta chamá-la nos métodos fetch consumindo através dos seus endpoints com a [URL](https://annotation-system.vercel.app/).
+
+### Exemplo de uso:
+```bash
+# Comando fetch GET
+const helloWorld = async () => {
+    const response = await fetch(`${URL}`);
+    const hello = await response.json();
+    return hello;
+}
+# Retorno esperado { message: 'hello world!' }
+```
+<br>

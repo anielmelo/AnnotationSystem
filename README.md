@@ -48,10 +48,6 @@ A autenticação na API é feita utilizando JSON Web Tokens (JWT). Os usuários 
 
 Para fazer login, os usuários devem enviar uma solicitação POST para `/api/auth/login` com as credenciais de login (email e senha) no corpo da solicitação. Se as credenciais forem válidas, a API retornará um token de acesso.
 
-## Como utilizar
-
-Para utilizar a API basta chamá-la nos métodos fetch consumindo através dos seus endpoints com a [URL](https://annotation-system.vercel.app/).
-
 ### Exemplo de uso:
 ```bash
 # Comando fetch GET
